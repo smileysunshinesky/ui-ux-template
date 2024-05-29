@@ -98,7 +98,6 @@
 .jobCard-title {
   font-size: var(--jobCard-title-size);
   padding: 4% 15% 0 15%;
-  /* padding-top: 2%; */
   margin-bottom: 1%;
   margin-top: 10%;
   border-bottom: dashed 5px var(--jobCard-title-top-decoration);
