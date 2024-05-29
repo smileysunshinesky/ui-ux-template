@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <meta charset=utf-8>
+    <meta name=viewport content="width=device-width,initial-scale=1">
+    <meta name=theme-color content=#000000>
+    <meta name=description content="Remote Jobs">
+    <title>My UI/UX Design</title>
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <!-- <script src="assets/js/tailwindcss3.4.3.js"></script> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+    <div id="preloader"
+        class="fixed top-0 left-0 w-full h-full bg-gradient-to-br from-blue-800 via-teal-500 to-yellow-500 z-50 opacity-100">
+    </div>
+    <div id='home'
+        class="title bg-transparent bgstyle text-light d-flex align-content-center align-items-center flex-wrap m-0 jumbotron jumbotron-fluid"
+        style="background:rgba(0,0,0,0) linear-gradient(136deg,rgb(68,132,206),rgb(26,215,192),rgb(255,155,17),rgb(155,89,182),rgb(255,127,127),rgb(236,240,241)) repeat scroll 0% 0% / 1200% 1200%">
+        <div id="stars"></div>
+        <div class="text-center container mx-auto py-4">
+            <h1 class="text-white text-2xl p-4 hover:text-sky-700">UI/UX Design Examples</h1>
+            <hr class="w-8 h-8 mx-auto mb-4 mt-12 bg-gray-200 border-0 rounded dark:bg-gray-700">
+            <!----Picture and name---->
+            <div id="reference_container"></div>            
+            <div id="tips_container" class="social-media grid grid-cols-2 gap-4">
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/index.js"></script>
+    <script src="https://kit.fontawesome.com/1ee8f271b9.js"></script>
+    <script src="assets/js/references.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script>
+        // Zoom in up effect add in every social media button one by one
+        const socialMediaLinks = document.querySelectorAll(".social-media div");
+
+        // ON SCROLL REVEAL SMALL CARDS
+        ScrollReveal().reveal(socialMediaLinks, {
+            duration: 1000,
+            opacity: 0,
+            distance: "30%",
+            origin: "bottom",
+            scale: 0.9
+        });
+    </script>
+    <script>
+        // Function to remove the preloader after it has faded away
+        function removePreloader() {
+            var preloader = document.getElementById('preloader');
+            preloader.remove();
+        }
+
+        // Function to hide the preloader with a fade effect and then remove it
+        setTimeout(function () {
+            var preloader = document.getElementById('preloader');
+            preloader.classList.add('preloader-hidden');
+            preloader.addEventListener('transitionend', removePreloader);
+        }, 500); // 3000 milliseconds = 3 seconds
+    </script>
+
+</body>
+
+</html>

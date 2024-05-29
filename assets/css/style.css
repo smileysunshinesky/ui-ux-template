@@ -1,0 +1,412 @@
+:root {
+  --jobCard-size: 200px;
+  --jobCard-size-height: calc(var(--jobCard-size) - 20px);
+  --jobCard-icon-size: 40%;
+  --jobCard-background: #eeeeee;
+  /* #3f3f3f  */
+  --jobCard-title-top-decoration: #00d8ff;
+  --jobCard-title-size: 13pt;
+  --jobCard-innerBackgroundShadow: #666;
+  /* #eee */
+  --jobCard-description-size: calc(var(--jobCard-title-size) * 0.615);
+  --jobCard-fontColor: #666;
+}
+
+.jobCard {
+  position: relative;
+  filter: drop-shadow(-5px 6px 3px rgba(50, 50, 0, 0.5));
+  width: var(--jobCard-size);
+  transition: 0.5s ease all;
+}
+
+.jobCard.is-active {
+  filter: drop-shadow(0px 0px 3px rgba(50, 50, 0, 0.5));
+}
+
+.jobCard-hexagon {
+  width: var(--jobCard-size);
+  height: var(--jobCard-size-height);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  /* background: var(--jobCard-background); */
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.5s ease all;
+}
+
+.jobCard-hexagon.is-active {
+  transform: scale(1.03);
+}
+
+.jobCard-depth {
+  width: var(--jobCard-size);
+  height: var(--jobCard-size-height);
+  clip-path: polygon(75% 0%, 75% 0%, 100% 50%, 75% 100%, 75% 100%, 100% 50%);
+  opacity: 0;
+  background: rgba(30, 30, 30, 0.2);
+  position: absolute;
+  transition: 0.3s linear all;
+  z-index: 2;
+}
+
+.jobCard-depth.is-active {
+  /* clip-path: polygon(70% 0%, 75% 0%, 100% 50%, 75% 100%, 70% 100%, 95% 50%); */
+  clip-path: polygon(71% 0%, 76% 0%, 101% 50%, 76% 100%, 71% 100%, 96% 50%);
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+.jobCard-hexagon::after {
+  content: "";
+  display: block;
+  clip-path: polygon(
+    100% 0%,
+    100% 0%,
+    100% 50%,
+    100% 100%,
+    100% 100%,
+    100% 50%
+  );
+  animation-direction: reverse;
+  transition: 0.3s ease all;
+}
+
+.jobCard-hexagon:hover .jobCard-icon {
+  animation: logo-anim 0.5s ease;
+}
+
+.jobCard-hexagon:hover .jobCard-description {
+  text-decoration: underline;
+}
+
+.jobCard-icon {
+  width: var(--jobCard-icon-size);
+  /* height: var(--jobCard-icon-size); */
+  pointer-events: none;
+}
+
+.jobCard-text {
+  font-family: Roboto, sans-serif;
+  color: var(--jobCardFontColor);
+  pointer-events: none;
+}
+
+.jobCard-title {
+  font-size: var(--jobCard-title-size);
+  padding: 4% 15% 0 15%;
+  /* padding-top: 2%; */
+  margin-bottom: 1%;
+  margin-top: 10%;
+  border-bottom: dashed 5px var(--jobCard-title-top-decoration);
+}
+
+.jobCard-description {
+  font-size: var(--jobCard-description-size);
+  padding: 0;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+/*  */
+
+.deck {
+  /* width: 660px; */
+  /* min-height: 680px; */
+  /* background: linear-gradient(160deg, #0acfbe 0%, #bea6d2 100%); */
+  /* background: linear-gradient(160deg, rgba(10, 207, 190, 0.8) 0%, rgba(190, 166, 210, 0.8) 100%); */
+  background: rgba(10, 207, 190, 0.5);
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 3em;
+}
+/* style board clear*/
+.deck .card {
+  height: 150px;
+  width: 150px;
+  /* background: #2e3d49; */
+  font-size: 0;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+  /*codingvideos.net code snippet*/
+  transform-style: preserve-3d;
+  transition: all 0.65s ease-in-out;
+}
+
+/*style for game restart (after shuffle function) */
+.deck .card.open {
+  transform: rotateY(0);
+  background: #02b3e4;
+  cursor: default;
+}
+/*style for user selected card */
+.deck .card.open.face {
+  font-size: 33px;
+}
+/*style for user selected match */
+.deck .card.match {
+  height: 150px;
+  width: 150px;
+  /* background: #58dbcb; */
+  background: transparent;
+  font-size: 0;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+  /* codingvideos.net code snippet */
+  transform-style: preserve-3d;
+  transition: all 0.65s ease-in-out;
+  font-size: 33px;
+}
+
+/*
+ * Styles for the Score Panel
+ */
+
+.score-panel {
+  text-align: left;
+  width: 345px;
+  margin-bottom: 10px;
+}
+
+.score-panel .stars {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin: 0 5px 0 0;
+}
+
+.score-panel .stars li {
+  list-style: none;
+  display: inline-block;
+}
+
+.score-panel .restart {
+  float: right;
+  cursor: pointer;
+}
+
+/*  */
+
+.box {
+  width: 300px;
+  height: 300px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.288);
+  border-radius: 23px;
+  flex-direction: column;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  align-content: center;
+}
+
+.box::before {
+  content: "";
+  width: 30.5em;
+  height: 45.5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(
+    160deg,
+    #f8fd01,
+    #f8fd01b4,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.4),
+    #03dee0b4,
+    #03dee0
+  );
+  border-radius: 35px;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.box:hover::before {
+  opacity: 1;
+}
+
+.circles {
+  position: absolute;
+  z-index: -2;
+  filter: blur(50px);
+}
+
+.c1 {
+  top: 0;
+  left: 0;
+  width: 3em;
+  height: 3em;
+  background-color: #f8fd01;
+}
+
+.c2 {
+  width: 4em;
+  height: 4em;
+  background-color: #03dee0;
+  bottom: -7%;
+  right: -5%;
+}
+
+.user_name {
+  margin-bottom: 5px;
+  font-size: 2rem;
+}
+
+.arr_container,
+.cancel {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  /* background: white; */
+  background-color: rgba(216, 219, 215, 0.3);
+  bottom: 0;
+  right: 0;
+  border-radius: 23px 0 23px 0;
+  color: rgb(70, 70, 70);
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.arr_container i {
+  transform: rotate(45deg);
+}
+
+.active_arr {
+  transform: translate(80%, 80%);
+}
+
+.left_container {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  padding: 30px 20px 20px 20px;
+  /* padding: 20px; */
+  top: 0;
+  border-radius: 23px;
+  transition: all 0.4s;
+}
+
+.off {
+  transform: translate(-80%, -80%) rotate(90deg);
+}
+
+.active {
+  transform: translate(0) rotate(0);
+}
+
+.left_container p {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.left_container .skills div {
+  display: inline-block;
+  color: rgb(155, 155, 155);
+  border: 1px solid rgb(155, 155, 155);
+  padding: 2px 5px;
+  font-size: 0.9rem;
+  margin: 4px 4px 4px 0;
+}
+
+.left_container .icons {
+  font-size: 1.6rem;
+  margin-top: 10px;
+}
+
+.left_container .icons i {
+  color: #cfcfcf;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.4s;
+}
+
+.left_container .icons i:hover {
+  color: #2c5364;
+}
+
+/*  */
+
+.servicetitle::after,
+.servicetitle::before {
+  content: "";
+  position: absolute;
+  border: 3px solid white;
+}
+
+.servicetitle::before {
+  top: 1.2rem;
+  bottom: 3rem;
+  right: 1.5rem;
+}
+
+.servicetitle::after {
+  left: 3.7rem;
+  right: 1.5rem;
+  top: 1.2rem;
+}
+
+
+.social-media h2 {
+  width: 100%;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px dashed #343b45;
+  background-color: #f5f5fc;
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+.social-media h2:hover {
+  color: #ffffff;
+  background-color: #343b45;
+  border-color: #00d8ff;
+}
+
+.social-media h2::after {
+  content: " ";
+  position: absolute;
+  display: block;
+  height: 24px;
+  width: 24px;
+  left: 1rem;
+  top: 1rem;
+  background-color: #00c8aa;
+  border: 2px solid #00c8aa;
+  border-radius: 0.5rem;
+}
+
+
+#preloader {
+  background: 0% 0% / 100% 100% no-repeat;
+  background-image: url('../img/pre.svg');
+  background-position: 50%;
+  transition: opacity 1s ease-in-out; /* Smooth transition effect */
+}
+
+.preloader-hidden {
+  opacity: 0 !important;
+}
